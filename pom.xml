@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+
+	<!-- mvn install:install-file -Dfile="D:\LVB_DEV\LVB_FID\Sources\com.nokieng.crccalc.jar" 
+		-DgroupId="com.nokieng17" -DartifactId=crccalc -Dversion="1.0.0" -Dpackaging=jar 
+		-DgeneratePom=true -->
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.lvb.emvcoqr</groupId>
+	<artifactId>com.lvb.emvcoqr</artifactId>
+	<version>0.0.1</version>
+	<name>EMVCO QR</name>
+	<description>implementing EMVCO QR by magma17</description>
+
+
+
+	<properties>
+		<javax.el.api.version>3.0.1-b06</javax.el.api.version>
+		<hibernate.validator.version>6.0.16.Final</hibernate.validator.version>
+		<bean.validation.api.version>2.0.1.Final</bean.validation.api.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- Java bean validation API - Spec -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${bean.validation.api.version}</version>
+		</dependency>
+
+		<!-- Hibernate validator - Bean validation API Implementation -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator.version}</version>
+		</dependency>
+
+		<!-- Unified Expression Language - Spec -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>${javax.el.api.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.nokieng17</groupId>
+			<artifactId>crccalc</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
