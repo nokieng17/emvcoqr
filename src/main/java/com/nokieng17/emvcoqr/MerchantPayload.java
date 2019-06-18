@@ -3,7 +3,6 @@ package com.nokieng17.emvcoqr;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 import com.nokieng17.emvcoqr.validation.EmvSpecification;
 import com.nokieng17.emvcoqr.validation.RequireIso8859;
@@ -27,7 +26,8 @@ public class MerchantPayload {
 	@EmvSpecification(Id = 52, MaxLength = 4)
 	@RequireIso8859
 	@NotNull(message = "MerchantCategoryCode is null")
-	@PositiveOrZero(message = "MerchantCategoryCode is not positive or zero")
+	@Min(value = -1, message = "merchantCategoryCode is out of range [1~9999]")
+	@Max(value = 9999, message = "merchantCategoryCode is out of range [1~9999]")
 	public int merchantCategoryCode = -1;
 
 	@EmvSpecification(Id = 58, MaxLength = 2)
@@ -55,12 +55,12 @@ public class MerchantPayload {
 
 	@EmvSpecification(Id = 54, MaxLength = 13)
 	@RequireIso8859
-	@PositiveOrZero(message = "transactionAmount is not positive or zero")
+	@Min(value = 0, message = "transactionAmount is less than zero")
 	public double transactionAmount = 0d;
 
 	@EmvSpecification(Id = 53, MaxLength = 3)
 	@RequireIso8859
-	@PositiveOrZero(message = "transactionCurrency is not positive or zero")
+	@Min(value = -1, message = "transactionCurrency is less than zero")
 	public int transactionCurrency = -1;
 
 	@EmvSpecification(Id = 55, MaxLength = 2)
