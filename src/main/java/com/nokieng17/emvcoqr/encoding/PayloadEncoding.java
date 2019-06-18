@@ -58,10 +58,14 @@ public class PayloadEncoding implements IPayloadEncoding<MerchantPayload> {
 			throw new RuntimeException("There must be at least one Merchant Account Information tag");
 		}
 
-		validObjectConstrain(instance.additionalData);
-		validObjectConstrain(instance.merchantLanguageInformation);
+		if (null != instance.additionalData) {
+			validObjectConstrain(instance.additionalData);
+		}
+		if (null != instance.merchantLanguageInformation) {
+			validObjectConstrain(instance.merchantLanguageInformation);
+		}
 
-		if (instance.unreservedTemplate.size() > 0) {
+		if (null != instance.unreservedTemplate && instance.unreservedTemplate.size() > 0) {
 			for (Entry<Integer, MerchantUnreservedTemplate> unreserved : instance.unreservedTemplate.entrySet()) {
 				validObjectConstrain(unreserved.getValue());
 				if (unreserved.getKey() < 50 && unreserved.getKey() > 99) {
@@ -134,8 +138,8 @@ public class PayloadEncoding implements IPayloadEncoding<MerchantPayload> {
 			} else if (propValue instanceof PaymentNetworkSpecifics) {
 				PaymentNetworkSpecifics specifict = (PaymentNetworkSpecifics) propValue;
 				for (Entry<Integer, String> item : specifict.entrySet()) {
-					System.out.println(
-							String.format("%02d%02d%s", item.getKey(), item.getValue().length(), item.getValue()));
+//					System.out.println(
+//							String.format("%02d%02d%s", item.getKey(), item.getValue().length(), item.getValue()));
 					qrBuilder.append(
 							String.format("%02d%02d%s", item.getKey(), item.getValue().length(), item.getValue()));
 				}
@@ -158,15 +162,15 @@ public class PayloadEncoding implements IPayloadEncoding<MerchantPayload> {
 			} else if (propValue instanceof ContextSpecificData) {
 				ContextSpecificData specifict = (ContextSpecificData) propValue;
 				for (Entry<Integer, String> item : specifict.entrySet()) {
-					System.out.println(
-							String.format("%02d%02d%s", item.getKey(), item.getValue().length(), item.getValue()));
+//					System.out.println(
+//							String.format("%02d%02d%s", item.getKey(), item.getValue().length(), item.getValue()));
 					qrBuilder.append(
 							String.format("%02d%02d%s", item.getKey(), item.getValue().length(), item.getValue()));
 				}
 
 			} else {
 				String tag = this.encodeProperty(object, propName, propValue);
-				System.out.println(String.format("%20s %s %s", propName, propValue, tag));
+//				System.out.println(String.format("%20s %s %s", propName, propValue, tag));
 				if (null != tag && tag.length() > 0) {
 					qrBuilder.append(tag);
 				}
@@ -202,9 +206,9 @@ public class PayloadEncoding implements IPayloadEncoding<MerchantPayload> {
 	}
 
 	private <T> String encodePropertyValue(T propertyValue) {
-		if (propertyValue instanceof Integer && (int) propertyValue > -1) {
+		if (propertyValue instanceof Integer && (Integer) propertyValue > -1) {
 			return String.format("%02d", propertyValue);
-		} else if (propertyValue instanceof Double && (double) propertyValue > 0d) {
+		} else if (propertyValue instanceof Double && (Double) propertyValue > 0d) {
 			return String.format("%.2f", propertyValue).replace(".00", "");
 		} else if (propertyValue instanceof String) {
 			return String.format("%s", propertyValue);

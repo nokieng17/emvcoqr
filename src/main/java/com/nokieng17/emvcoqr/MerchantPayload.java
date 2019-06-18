@@ -67,7 +67,6 @@ public class MerchantPayload {
 	@RequireIso8859
 	@Min(value = -1, message = "TipOrConvenienceIndicator is out of range [1~3]")
 	@Max(value = 3, message = "TipOrConvenienceIndicator is out of range [1~3]")
-	@PositiveOrZero(message = "TipOrConvenienceIndicator is not positive or zero")
 	public int tipOrConvenienceIndicator = -1;
 
 	@EmvSpecification(Id = 56, MaxLength = 13)
